@@ -11,10 +11,12 @@ import { UserService } from "@/app/lib/backend/services/userService";
 import { EmailPayload, sendEmail } from "@/app/lib/serverFunctions";
 import { generateFileName, saveFile } from "@/app/lib/serverFunctions";
 import { Kid } from "@/app/lib/backend/models/kid.model";
+
 await connectDB();
 
 export async function GET(req: NextRequest) {
   try {
+
     const searchParams = req.nextUrl.searchParams;
 
     const userId = searchParams.get("userId");
@@ -28,6 +30,7 @@ export async function GET(req: NextRequest) {
         TransactionReceiptSchema
       );
     }
+   
     if (!mongoose.models.Kid) {
       mongoose.model<IKid>("Kid", KidSchema);
     }
@@ -40,7 +43,7 @@ export async function GET(req: NextRequest) {
               { path: "child", model: "Kid" },
             ],
           })
-          .populate("accounts")
+          .populate({path: "accounts", model:"Kid"})
       : await Kid.findOne({ loginId: loginId })
           .populate({ path: "transactions" })
           .populate({

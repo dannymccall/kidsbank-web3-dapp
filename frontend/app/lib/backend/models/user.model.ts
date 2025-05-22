@@ -23,8 +23,8 @@ const UserSchema: Schema<IUser> = new Schema(
     address: { type: String, required: true },
     role: { type: String, enum: ['parent', 'admin', 'user'], default: 'user' },
 
-    transactions: [{ type: Schema.Types.ObjectId, ref: 'Transaction' }], // refine if you know structure
-    accounts: [{ type: Schema.Types.ObjectId, ref: 'Account' }],     // same here
+    transactions: [{ type: Schema.Types.ObjectId, ref: 'TransactionReceipt' }], // refine if you know structure
+    accounts: [{ type: Schema.Types.ObjectId, ref: 'Kid' }],     // same here
 
     avarta: { type: String },
   },
